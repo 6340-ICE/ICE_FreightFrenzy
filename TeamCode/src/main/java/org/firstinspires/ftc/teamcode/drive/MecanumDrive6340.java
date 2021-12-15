@@ -602,6 +602,17 @@ public class MecanumDrive6340 extends MecanumDrive {
         rightWheelServo.setPower(0.0);
         redLED.setState(false);
         greenLED.setState(true);
+         {
+              if(drive.ArmMotor.getCurrentPosition() - drive.targetEncoderCountLevel2 < -100){
+                  drive.ArmMotor.setPower(0.7);
+              }
+             else if(drive.ArmMotor.getCurrentPosition() - drive.targetEncoderCountLevel2 > 100){
+                  drive.ArmMotor.setPower(-0.7);
+              }
+             else{
+                 drive.ArmMotor.setPower(0.0);
+              }
+    }
     }
 
     public void RotorArmFunctionGo(){
