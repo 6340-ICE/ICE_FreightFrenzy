@@ -78,9 +78,12 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 */
             if (drive.digitalTouch.getState() == true) {
                 telemetry.addData("Digital Touch", "Is Not Pressed");
-            }
+                drive.greenLED.setState(false);
+                drive.redLED.setState(true);            }
             else {
                 drive.stopIntakeBlocks();
+                drive.redLED.setState(false);
+               drive.greenLED.setState(true);
             }
 
             if (gamepad2.dpad_right) // X is intake system
@@ -155,13 +158,27 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                     drive.ArmMotor.setPower(0.0);
                 }
             }
-       /*
-            if (gamepad1.x) // X is intake system
-            {
-                drive.ArmLifter(-1, 4);
-            }
 
-        */
+            if (gamepad2.x) // X is intake system
+            {
+                gamepad2_Y_WasPressed = false;
+                gamepad2_A_WasPressed = false;
+                gamepad2_B_WasPressed= false;
+                gamepad2_X_WasPressed = true;
+            }
+            if (gamepad2_X_WasPressed) // X is intake system
+            {
+                if(drive.ArmMotor.getCurrentPosition() - drive.targetEncoderCountLevel0 < -150){
+                    drive.ArmMotor.setPower(0.7);
+                }
+                else if(drive.ArmMotor.getCurrentPosition() - drive.targetEncoderCountLevel0 > 125){
+                    drive.ArmMotor.setPower(-0.7);
+                }
+                else{
+                    drive.ArmMotor.setPower(0.0);
+                }            }
+
+
             if (gamepad2.right_bumper) // X is intake system
             {
                 drive.inTakeblocks();
@@ -173,7 +190,7 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
             }
             drive.update();
-            if(gamepad2.x)
+            /*if(gamepad2.x)
             {
                 if(gamepad2_X_WasPressed)
                     gamepad2_X_WasPressed=false;
@@ -183,6 +200,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 if(gamepad2.left_stick_y > 0.0)
                     gamepad2_X_WasPressed=false;
             }
+
+             */
             drive.rotorMotor.setPower(gamepad2.left_stick_x*-1.0);
             double powerToApply = 0.0;
             if(Math.abs(gamepad2.right_stick_y) > 0.00){

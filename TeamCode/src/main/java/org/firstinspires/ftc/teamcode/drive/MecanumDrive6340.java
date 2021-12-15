@@ -140,7 +140,7 @@ public class MecanumDrive6340 extends MecanumDrive {
 
     private Pose2d lastPoseOnTurn;
     public int targetEncoderCountLevelMinus1 = 0;
-    public int targetEncoderCountLevel0 = 1200;
+    public int targetEncoderCountLevel0 = 0;
     public int targetEncoderCountLevel1 = 1200;
     public int targetEncoderCountLevel2 = 2200;
     public int targetEncoderCountLevel3 = 3200;
@@ -208,6 +208,8 @@ public class MecanumDrive6340 extends MecanumDrive {
 
 
         digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+        redLED.setMode(DigitalChannel.Mode.OUTPUT);
+        greenLED.setMode(DigitalChannel.Mode.OUTPUT);
 
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
@@ -594,14 +596,12 @@ public class MecanumDrive6340 extends MecanumDrive {
     public void inTakeblocks (){
         leftWheelServo.setPower(-1.0);
         rightWheelServo.setPower(1.0);
-         greenLED.setState(false);
-         redLED.setState(true);
+
     }
     public void stopIntakeBlocks(){
         leftWheelServo.setPower(0.0);
         rightWheelServo.setPower(0.0);
-        redLED.setState(false);
-        greenLED.setState(true);
+
     }
 
     public void RotorArmFunctionGo(){
