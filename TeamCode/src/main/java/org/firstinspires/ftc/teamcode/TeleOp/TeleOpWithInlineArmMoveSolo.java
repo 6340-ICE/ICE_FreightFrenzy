@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -19,7 +18,7 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "drive")
-public class TeleOpWithInlineArmMove extends LinearOpMode {
+public class TeleOpWithInlineArmMoveSolo extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -54,13 +53,17 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         boolean gamepad2_X_WasPressed = false;
 
         while (opModeIsActive()) {
-            drive.setWeightedDrivePower(
-                    new Pose2d(
-                            -gamepad1.left_stick_y*.7,
-                            -gamepad1.left_stick_x*.7,
-                            -gamepad1.right_stick_x*.7
-                    )
-            );
+         if(gamepad1.right_trigger==0.0) {
+             drive.ArmMotor.setPower(0.0);
+             drive.rotorMotor.setPower(0.0);
+             drive.setWeightedDrivePower(
+                     new Pose2d(
+                             -gamepad1.left_stick_y * .9,
+                             -gamepad1.left_stick_x * .9,
+                             -gamepad1.right_stick_x * .7
+                     )
+             );
+         }
             //TODO create button map
 
             drive.update();
@@ -102,7 +105,7 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 drive.spinwheelright();
             if (gamepad2.dpad_left) // X is intake system
                 drive.spinwheelleft();
-            if (gamepad2.dpad_up) {
+            if (gamepad1.dpad_up) {
                 drive.stopIntakeBlocks();
             }
             if (gamepad2.dpad_down) // X is intake system
@@ -177,12 +180,12 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
             }
 
         */
-            if (gamepad2.right_bumper) // X is intake system
+            if (gamepad1.right_bumper) // X is intake system
             {
                 drive.inTakeblocks();
             }
 
-            if (gamepad2.left_bumper) // X is intake system
+            if (gamepad1.left_bumper) // X is intake system
             {
                 drive.outTakeblocks();
 
@@ -198,21 +201,28 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 if(gamepad2.left_stick_y > 0.0)
                     gamepad2_X_WasPressed=false;
             }
-            drive.rotorMotor.setPower(gamepad2.left_stick_x*-1.0);
-            double powerToApply = 0.0;
-            if(Math.abs(gamepad2.right_stick_y) > 0.00){
-                gamepad2_Y_WasPressed = false;
-                gamepad2_A_WasPressed = false;
-                gamepad2_B_WasPressed= false;
-                gamepad2_X_WasPressed = false;
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*-1.0);
-            }
-            if(!(gamepad2_A_WasPressed || gamepad2_B_WasPressed || gamepad2_X_WasPressed ||gamepad2_Y_WasPressed))
-            {
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*-1.0);
-            }
+           if(gamepad1.right_trigger>0.0) {
+               drive.setWeightedDrivePower(
+                       new Pose2d(
+                               -gamepad1.left_stick_y * 0,
+                               -gamepad1.left_stick_x * 0,
+                               -gamepad1.right_stick_x * 0
+                       )
+               );
+               drive.rotorMotor.setPower(gamepad1.left_stick_x * -1.0);
+               double powerToApply = 0.0;
+               if (Math.abs(gamepad1.right_stick_y) > 0.00) {
+                   gamepad2_Y_WasPressed = false;
+                   gamepad2_A_WasPressed = false;
+                   gamepad2_B_WasPressed = false;
+                   gamepad2_X_WasPressed = false;
+                   drive.ArmMotor.setPower(gamepad1.right_stick_y * -1.0);
+               }
+               if (!(gamepad2_A_WasPressed || gamepad2_B_WasPressed || gamepad2_X_WasPressed || gamepad2_Y_WasPressed)) {
+                   drive.ArmMotor.setPower(gamepad1.right_stick_y * -1.0);
+               }
 
-
+           }
 
 // Show the potentiometer’s voltage in telemetry
             telemetry.addData(("PostionLevel:"),poistionOfArm);

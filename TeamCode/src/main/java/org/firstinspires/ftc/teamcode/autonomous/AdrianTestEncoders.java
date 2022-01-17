@@ -41,7 +41,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.AdrianControls.AdrianMecanumControls;
 import org.firstinspires.ftc.teamcode.AdrianControls.VuforiaStuff;
 import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
-
+//import com.arcrobotics.ftclib.controller;
+//import com.acrobotics.
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -56,9 +57,9 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AdrianTestVuforiaTester", group="Linear Opmode")
-@Disabled
-public class AdrianTestVuforiaTester extends AdrianMecanumControls {
+@Autonomous(name="AdrianTestEncoders", group="Linear Opmode")
+//@Disabled
+public class AdrianTestEncoders extends AdrianMecanumControls {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -86,46 +87,36 @@ public class AdrianTestVuforiaTester extends AdrianMecanumControls {
         // Wait for the game to start (driver presses PLAY)
 
         MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
-        drive.elbowServo.setPosition(1.0);
-        sleep(1000);
+        //drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //drive.elbowServo.setPosition(1.0);
+        //sleep(1000);
         //drive.boxServo.setPosition(0.2);
         //sleep(1000);
-        drive.handServo.setPosition(0.3);
+        //drive.handServo.setPosition(0.3);
 
         waitForStart();
         runtime.reset();
 
-
+        /*
         drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.ArmMotor.setTargetPosition(drive.ArmMotor.getCurrentPosition() - 400);
-       /*
         drive.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        drive.ArmMotor.setPower(0.3);
+        drive.ArmMotor.setPower(1);
         while (drive.ArmMotor.isBusy()){
 
         }
-*/
-        ElapsedTime timerForPid = new ElapsedTime();
-        drive.ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        int initialPosition = drive.ArmMotor.getCurrentPosition();
-        drive.ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        timerForPid.reset();
-        while(Math.abs(drive.ArmMotor.getCurrentPosition() - 500)> 20 && timerForPid.seconds()<2)
-        {
-            double powerToApply = Math.abs(drive.ArmMotor.getCurrentPosition() - 400) * 1.0/Math.abs(initialPosition-400);
-            drive.ArmMotor.setPower(powerToApply);
-        }
-        //drive.ArmMotor.setPower(0);
-         sleep(500);
-        drive.elbowServo.setPosition(0.0);
-        sleep(1500);
 
-        drive.handServo.setPosition(0.0);
-        sleep(500);
-        drive.boxServo.setPosition(1.0);
-        sleep(1500);
-        drive.boxServo.setPosition(0.3);
+         */
+
+        //  sleep(500);
+        //drive.elbowServo.setPosition(0.0);
+      //  sleep(1500);
+
+        //drive.handServo.setPosition(0.0);
+        //sleep(500);
+        //drive.boxServo.setPosition(1.0);
+        //sleep(1500);
+        //drive.boxServo.setPosition(0.3);
 
 
 
@@ -138,14 +129,44 @@ public class AdrianTestVuforiaTester extends AdrianMecanumControls {
         boolean turnOnlyOneAtIntake = false;
         VuforiaStuff.capElementPos pos = null;
         pos = posData.capElementPosition;
+      drive.ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+  /*     //   drive.ArmMotor.setPower(0.176);
+         double kSVolts = 1;
+        double kCosVolts = 1;
+        double kVVoltSecondPerRad = 0.5;
+        double kAVoltSecondSquaredPerRad = 0.1;
+        ArmFeedforward feedForward = new ArmFeedforward (kSVolts,kCosVolts,kVVoltSecondPerRad,kAVoltSecondSquaredPerRad);
+        ElapsedTime timerForPid = new ElapsedTime();
+        drive.ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        int initialPosition = drive.ArmMotor.getCurrentPosition();
+        drive.ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        timerForPid.reset();
+        while(Math.abs(drive.ArmMotor.getCurrentPosition() - 180)> 20 && timerForPid.seconds()<2)
+        {
+            double powerToApply = Math.abs(drive.ArmMotor.getCurrentPosition() - 180) * 0.8/Math.abs(initialPosition-180);
+            drive.ArmMotor.setVelocity(feedForward.calculate(1,0.5,0.35));
+
+        }
+
+*/
+
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
 
-            telemetry.addData("Position", pos);
+
+            telemetry.addData("RightEncoderValue", drive.rightEncoderMotor.getCurrentPosition());
+            telemetry.addData("LeftEncoderValue", drive.duckMotor.getCurrentPosition());
+            telemetry.addData("FrontEncoderValue", drive.rotorMotor.getCurrentPosition());
+
             telemetry.addData("LeftYellowCount", posData.yellowCountLeft);
             telemetry.addData("CenterYellowCount", posData.yellowCountCenter);
             telemetry.addData("RightYellowCount", posData.yellowCountRight);
+            telemetry.addData("ArmCurrentPosition", drive.ArmMotor.getCurrentPosition());
+  //          telemetry.addData("powervaluefinal ", drive.ArmMotor.getPower());
+//            telemetry.addData("powervaluefinal ", feedForward.calculate(-1,0.25));
 
 
 

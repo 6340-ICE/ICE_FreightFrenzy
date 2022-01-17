@@ -52,9 +52,9 @@ public class VuforiaStuff {
         //int greenThreshold = 90;
         //int blueThreshold = 50;
         //ForBlueDectection Thresholds
-        int redThreshold = 150;
-        int greenThreshold = 150;
-        int blueThreshold = 150;
+        int redThreshold = 130;
+        int greenThreshold = 130;
+        int blueThreshold = 130;
 
         Vuforia.setFrameFormat(PIXEL_FORMAT.RGB565, true);
         VuforiaLocalizer.CloseableFrame closeableFrame = null;

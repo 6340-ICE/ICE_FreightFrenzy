@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -42,7 +43,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * is explained below.
  */
 @Autonomous(name = "Red Auto Wearhouse", group = "Autonomous")
-//@Disabled
+@Disabled
 
 public class RedAutoWearhouse extends AutoWithParkingInWearhouse {
 

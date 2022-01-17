@@ -115,6 +115,7 @@ public class MecanumDrive6340 extends MecanumDrive {
     public DcMotorEx shooter;
     public DcMotorEx ArmMotor;
     public DcMotorEx arm;
+    public DcMotorEx rightEncoderMotor;
     public DcMotorEx indexer;
 
 
@@ -128,6 +129,10 @@ public class MecanumDrive6340 extends MecanumDrive {
     public CRServo leftWheelServo, rightWheelServo;
     public AnalogInput armPOT;
     public DigitalChannel digitalTouch;
+    public DigitalChannel redLED1;
+    public DigitalChannel greenLED1;
+    public DigitalChannel redLED2;
+    public DigitalChannel greenLED2;
 
 
 
@@ -140,6 +145,7 @@ public class MecanumDrive6340 extends MecanumDrive {
     public int targetEncoderCountLevel1 = 1200;
     public int targetEncoderCountLevel2 = 2200;
     public int targetEncoderCountLevel3 = 3200;
+    public int targetEncoderCountLevel4 = 3300;
     public double armMinPowerDuringMove = 1.0;
     public double armMinPowerDuringMoveTeleop = 0.40;
     public double armMinPowerDuringHold = 0.02;
@@ -196,8 +202,18 @@ public class MecanumDrive6340 extends MecanumDrive {
         shooter = hardwareMap.get(DcMotorEx.class, "ArmMotor");
         ArmMotor = hardwareMap.get(DcMotorEx.class, "ArmMotor");
         duckMotor = hardwareMap.get(DcMotorEx.class, "leftEncoder");
+        rightEncoderMotor = hardwareMap.get(DcMotorEx.class, "rightEncoder");
         indexer = hardwareMap.get(DcMotorEx.class, "leftEncoder");
         digitalTouch = hardwareMap.get(DigitalChannel.class, "touchSensor");
+        redLED1 = hardwareMap.get(DigitalChannel.class, "red1");
+        redLED2 = hardwareMap.get(DigitalChannel.class, "red2");
+        greenLED1 = hardwareMap.get(DigitalChannel.class, "green1");
+        greenLED2 = hardwareMap.get(DigitalChannel.class, "green2");
+
+
+
+
+
 
 
         digitalTouch.setMode(DigitalChannel.Mode.INPUT);
@@ -528,6 +544,21 @@ public class MecanumDrive6340 extends MecanumDrive {
     }
 
     //Arm
+    public void goAndPark(){
+        rightRear.setPower(1.0);
+        rightFront.setPower(1.0);
+        leftFront.setPower(1.0);
+        leftRear.setPower(1.0);
+
+    }
+    public void stopAndPark(){
+        rightRear.setPower(0.0);
+        rightFront.setPower(0.0);
+        leftFront.setPower(0.0);
+        leftRear.setPower(0.0);
+
+    }
+
     public void deployArm() {
 
           rotorMotor.setPower(0.3);
@@ -569,10 +600,10 @@ public class MecanumDrive6340 extends MecanumDrive {
     }
     public void spinwheel (int Teamcolor) {
         if (Teamcolor == 1.0){
-            spinwheelright();
+            spinwheelleft();
         }
         else{
-            spinwheelleft();
+            spinwheelright();
         }
     }
     public void spinwheelstop () {
@@ -607,6 +638,10 @@ public class MecanumDrive6340 extends MecanumDrive {
 
     public void ArmLifter (int level,int pidTimerInSeconds){
         int targetEnconderCountLevel=targetEncoderCountLevel3;
+        if(level ==  4){
+            targetEnconderCountLevel = targetEncoderCountLevel4;
+        }
+
         if(level ==  3){
             targetEnconderCountLevel = targetEncoderCountLevel3;
         }
@@ -718,6 +753,16 @@ public class MecanumDrive6340 extends MecanumDrive {
         }
           return powerToApply;
 
+    }
+    public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {
+        return new MinVelocityConstraint(Arrays.asList(
+                new AngularVelocityConstraint(maxAngularVel),
+                new MecanumVelocityConstraint(maxVel, trackWidth)
+        ));
+    }
+
+    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
+        return new ProfileAccelerationConstraint(maxAccel);
     }
 
 

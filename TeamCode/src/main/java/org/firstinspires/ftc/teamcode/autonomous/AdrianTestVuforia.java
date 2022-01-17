@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.arcrobotics.ftclib.controller.wpilibcontroller.ArmFeedforward;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -57,7 +58,7 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
  */
 
 @Autonomous(name="AdrianTestVuforia", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class AdrianTestVuforia extends AdrianMecanumControls {
 
     // Declare OpMode members.

@@ -48,6 +48,6 @@ public class BlueAutoWithTwoBlocks extends AutoWithTwoBlocks {
 
     public BlueAutoWithTwoBlocks()
     {
-        super(-1);
+        super(-1, false);
     }
 }

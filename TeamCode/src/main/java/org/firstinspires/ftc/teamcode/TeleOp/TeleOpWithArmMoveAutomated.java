@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -17,9 +17,9 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
 
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "drive")
-public class TeleOpWithInlineArmMove extends LinearOpMode {
+public class TeleOpWithArmMoveAutomated extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -56,8 +56,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         while (opModeIsActive()) {
             drive.setWeightedDrivePower(
                     new Pose2d(
-                            -gamepad1.left_stick_y*.7,
-                            -gamepad1.left_stick_x*.7,
+                            -gamepad1.left_stick_y*.9,
+                            -gamepad1.left_stick_x*.9,
                             -gamepad1.right_stick_x*.7
                     )
             );

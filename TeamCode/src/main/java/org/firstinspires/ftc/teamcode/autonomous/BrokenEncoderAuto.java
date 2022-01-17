@@ -41,7 +41,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.AdrianControls.AdrianMecanumControls;
 import org.firstinspires.ftc.teamcode.AdrianControls.VuforiaStuff;
 import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
-
+//import com.arcrobotics.ftclib.controller;
+//import com.acrobotics.
 
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
@@ -56,9 +57,9 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="AdrianTestVuforiaTester", group="Linear Opmode")
+@Autonomous(name="BrokenEncoderAuto", group="Linear Opmode")
 @Disabled
-public class AdrianTestVuforiaTester extends AdrianMecanumControls {
+public class BrokenEncoderAuto extends AdrianMecanumControls {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -72,103 +73,20 @@ public class AdrianTestVuforiaTester extends AdrianMecanumControls {
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "I can not believe my encoder broke");
         telemetry.update();
         //Initialize Hardware( see AdrianMecanumControls)
-        initializeHardware();
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-        vuforiaStuff = new VuforiaStuff(vuforia);
-        // Wait for the game to start (driver presses PLAY)
-
+        //initializeHardware();
         MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
-        drive.elbowServo.setPosition(1.0);
-        sleep(1000);
-        //drive.boxServo.setPosition(0.2);
-        //sleep(1000);
-        drive.handServo.setPosition(0.3);
-
         waitForStart();
         runtime.reset();
 
-
-        drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        drive.ArmMotor.setTargetPosition(drive.ArmMotor.getCurrentPosition() - 400);
-       /*
-        drive.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        drive.ArmMotor.setPower(0.3);
-        while (drive.ArmMotor.isBusy()){
-
-        }
-*/
-        ElapsedTime timerForPid = new ElapsedTime();
-        drive.ArmMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        int initialPosition = drive.ArmMotor.getCurrentPosition();
-        drive.ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        timerForPid.reset();
-        while(Math.abs(drive.ArmMotor.getCurrentPosition() - 500)> 20 && timerForPid.seconds()<2)
-        {
-            double powerToApply = Math.abs(drive.ArmMotor.getCurrentPosition() - 400) * 1.0/Math.abs(initialPosition-400);
-            drive.ArmMotor.setPower(powerToApply);
-        }
-        //drive.ArmMotor.setPower(0);
-         sleep(500);
-        drive.elbowServo.setPosition(0.0);
-        sleep(1500);
-
-        drive.handServo.setPosition(0.0);
-        sleep(500);
-        drive.boxServo.setPosition(1.0);
-        sleep(1500);
-        drive.boxServo.setPosition(0.3);
-
-
-
-
-        VuforiaStuff.capElementPositionData posData = null;
-        posData = vuforiaStuff.vuforiascan(true, true);
-        double distanceToDropOffSkystone = 0;
-        double distanceBackToCenterLine = 0;
-        double distanceBackToSecondStone = 0;
-        boolean turnOnlyOneAtIntake = false;
-        VuforiaStuff.capElementPos pos = null;
-        pos = posData.capElementPosition;
-        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            drive.goAndPark();
+            sleep(1000);
+            drive.stopAndPark();
 
-
-            telemetry.addData("Position", pos);
-            telemetry.addData("LeftYellowCount", posData.yellowCountLeft);
-            telemetry.addData("CenterYellowCount", posData.yellowCountCenter);
-            telemetry.addData("RightYellowCount", posData.yellowCountRight);
-
-
-
-            telemetry.update();
-
-            //telemetry.addData("FilePath", path);
-
-            //finding encoder values
-/*            RightEncoderValue = GetRightEncoderValue();
-            LeftEncoderValue = GetLeftEncoderValue();
-            SideEncoderValue = GetSideEncoderValue();
-
-  // grid mecanum movment function( see Adrian Mecanum Controls)
-            GridMecanumMovement(-1,1,0.2);
-
-
-
-            telemetry.addData("Right Encoder Value", RightEncoderValue);
-            telemetry.addData("LeftEncoderValue", LeftEncoderValue);
-            telemetry.addData("SideEncoderValue", SideEncoderValue);
-            telemetry.update();
-         telemetry.update();
-    */                }
+                }
         }
 
     }
