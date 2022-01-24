@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryGenerator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -58,10 +59,10 @@ import org.firstinspires.ftc.teamcode.drive.advanced.PoseStorage;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "AutoNearDucksWithSpinner", group = "Autonomous")
+@Autonomous(name = "AutoNearDucksWithAlternatePath", group = "Autonomous")
 @Disabled
 
-public class AutoNearDucksWithSpinner extends LinearOpMode {
+public class AutoNearDucksWithAlternatePath extends LinearOpMode {
     private int teamColor;//1=Red -1= Blue
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -75,7 +76,7 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
     public VuforiaStuff vuforiaStuff;
     private TFObjectDetector tfod;
 
-    public AutoNearDucksWithSpinner(int TeamColor) {
+    public AutoNearDucksWithAlternatePath(int TeamColor) {
         super();
         teamColor = TeamColor;
     }
@@ -111,101 +112,106 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
                 .build();
 
 //Level Middle
-        Trajectory goToBasketTowerLevelMiddle = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-14, -56.5 * teamColor))
-                .build();
-        Trajectory goBackFromBasketTowerLevelMiddle = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
-                .lineTo(new Vector2d(-14, -61 * teamColor))
-                .build();
-        Trajectory goBackToStartPositionStrafeMiddle = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
-                .strafeTo(new Vector2d(-36, -72 * teamColor))
-                .build();
-
-        Trajectory goToDuckMiddleRed = drive.trajectoryBuilder(goBackToStartPositionStrafeMiddle.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckMiddleRed = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(-59, -66.5 * teamColor, Math.toRadians(0*teamColor)),
                         drive.getVelocityConstraint(15.0, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         drive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                 )
                 .build();
-
-        Trajectory goToStorageMiddleRed = drive.trajectoryBuilder(goToDuckMiddleRed.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .strafeTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroMiddleRed = drive.trajectoryBuilder(goToDuckMiddleRed.end())
+                .strafeTo(new Vector2d(-68, -30 * teamColor))
                 .build();
-        Trajectory goToDuckMiddleBlue = drive.trajectoryBuilder(goBackToStartPositionStrafeMiddle.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckMiddleBlue = drive.trajectoryBuilder(startPose)
                 .strafeTo(new Vector2d(-60, -65 * teamColor))
                 .build();
-        Trajectory goToStorageMiddleBlue = drive.trajectoryBuilder(goToDuckMiddleBlue.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroMiddleBlue = drive.trajectoryBuilder(goToDuckMiddleBlue.end())
+                .lineToLinearHeading(new Pose2d(-68, -30 * teamColor, Math.toRadians(0*teamColor)))
+                .build();
+        Trajectory tempMiddle;
+        if(teamColor == 1){
+            tempMiddle = goToZeroMiddleRed;
+        }
+        else{
+            tempMiddle = goToZeroMiddleBlue;
+        }
+        Trajectory goToBasketTowerLevelMiddle = drive.trajectoryBuilder(tempMiddle.end())
+                .lineTo(new Vector2d(-36.5, -30 * teamColor))
+                .build();
+        Trajectory goBackFromBasketTowerLevelMiddle = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
+                .lineTo(new Vector2d(-68, -30 * teamColor))
+                .build();
+        Trajectory goToStorageMiddle = drive.trajectoryBuilder(goBackFromBasketTowerLevelMiddle.end())
+                .strafeTo(new Vector2d(-68, -46 * teamColor))
                 .build();
         //remember to change x value for goToStorageMiddle.
 
 //Level High
 
-        Trajectory goToBasketTowerLevelHigh = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-12, -51 * teamColor))
-                .build();
-        Trajectory goBackFromBasketTowerLevelHigh = drive.trajectoryBuilder(goToBasketTowerLevelHigh.end())
-                .lineTo(new Vector2d(-12, -61 * teamColor))
-                .build();
-        Trajectory goBackToStartPositionStrafeHigh = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
-                .strafeTo(new Vector2d(-36, -72 * teamColor))
-                .build();
-        Trajectory goToDuckHighRed = drive.trajectoryBuilder(goBackToStartPositionStrafeHigh.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckHighRed = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(-59, -66.5 * teamColor, Math.toRadians(0*teamColor)),
                         drive.getVelocityConstraint(15.0, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         drive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                 )
                 .build();
-        Trajectory goToStorageHighRed = drive.trajectoryBuilder(goToDuckHighRed.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .strafeTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroHighRed = drive.trajectoryBuilder(goToDuckHighRed.end())
+                .strafeTo(new Vector2d(-68, -30 * teamColor))
                 .build();
-        Trajectory goToDuckHighBlue = drive.trajectoryBuilder(goBackToStartPositionStrafeHigh.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckHighBlue = drive.trajectoryBuilder(startPose)
                 .strafeTo(new Vector2d(-60, -65 * teamColor))
                 .build();
-        Trajectory goToStorageHighBlue = drive.trajectoryBuilder(goToDuckHighBlue.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroHighBlue = drive.trajectoryBuilder(goToDuckHighBlue.end())
+                .lineToLinearHeading(new Pose2d(-68, -30 * teamColor, Math.toRadians(0*teamColor)))
+                .build();
+        Trajectory tempHigh;
+        if(teamColor == 1){
+            tempHigh = goToZeroHighRed;
+        }
+        else{
+            tempHigh = goToZeroHighBlue;
+        }
+        Trajectory goToBasketTowerLevelHigh = drive.trajectoryBuilder(tempHigh.end())
+                .lineTo(new Vector2d(-34, -30 * teamColor))
+                .build();
+        Trajectory goBackFromBasketTowerLevelHigh = drive.trajectoryBuilder(goToBasketTowerLevelHigh.end())
+                .lineTo(new Vector2d(-68, -30 * teamColor))
+                .build();
+        Trajectory goToStorageHigh = drive.trajectoryBuilder(goBackFromBasketTowerLevelHigh.end())
+                .strafeTo(new Vector2d(-68, -46 * teamColor))
                 .build();
 
 //Level Low
-        Trajectory goToBasketTowerLevelLow = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-14, -55 * teamColor))
-                .build();
 
-        Trajectory goBackFromBasketTowerLevelLow = drive.trajectoryBuilder(goToBasketTowerLevelLow.end())
-                .lineTo(new Vector2d(-14, -61 * teamColor))
-                .build();
-        Trajectory goBackToStartPositionStrafeLow = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
-                .strafeTo(new Vector2d(-36, -72 * teamColor))
-                .build();
-        Trajectory goToDuckLowRed = drive.trajectoryBuilder(goBackToStartPositionStrafeLow.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckLowRed = drive.trajectoryBuilder(startPose)
                 .lineToLinearHeading(new Pose2d(-59, -66.5 * teamColor, Math.toRadians(0*teamColor)),
                         drive.getVelocityConstraint(15.0, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         drive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                 )
                 .build();
-        Trajectory goToStorageLowRed = drive.trajectoryBuilder(goToDuckLowRed.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .strafeTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroLowRed = drive.trajectoryBuilder(goToDuckLowRed.end())
+                .strafeTo(new Vector2d(-68, -30 * teamColor))
                 .build();
-        Trajectory goToDuckLowBlue = drive.trajectoryBuilder(goBackToStartPositionStrafeLow.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
+        Trajectory goToDuckLowBlue = drive.trajectoryBuilder(startPose)
                 .strafeTo(new Vector2d(-60, -65 * teamColor))
                 .build();
-        Trajectory goToStorageLowBlue = drive.trajectoryBuilder(goToDuckLowBlue.end())
-                //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineTo(new Vector2d(-68, -47.5 * teamColor))
+        Trajectory goToZeroLowBlue = drive.trajectoryBuilder(goToDuckLowBlue.end())
+                .lineToLinearHeading(new Pose2d(-68, -30 * teamColor, Math.toRadians(0*teamColor)))
                 .build();
-
-
+        Trajectory tempLow;
+        if(teamColor == 1){
+            tempLow = goToZeroLowRed;
+        }
+        else{
+            tempLow = goToZeroLowBlue;
+        }
+        Trajectory goToBasketTowerLevelLow = drive.trajectoryBuilder(tempLow.end())
+                .lineTo(new Vector2d(-35, -30 * teamColor))
+                .build();
+        Trajectory goBackFromBasketTowerLevelLow = drive.trajectoryBuilder(goToBasketTowerLevelLow.end())
+                .lineTo(new Vector2d(-68, -30 * teamColor))
+                .build();
+        Trajectory goToStorageLow = drive.trajectoryBuilder(goBackFromBasketTowerLevelLow.end())
+                .strafeTo(new Vector2d(-68, -46 * teamColor))
+                .build();
 /*
         Trajectory goToWall = drive.trajectoryBuilder(gobackfromBasketTower.end())
                 .splineToConstantHeading(new Vector2d( -12,-70*teamColor), Math.toRadians(0))
@@ -269,6 +275,20 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
         //drive.followTrajectory(goToBasketTowerStrafe);
        if(pos == VuforiaStuff.capElementPos.CENTER)
         {
+            if(teamColor == 1.0) {
+                drive.followTrajectory(goToDuckMiddleRed);
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroMiddleRed);
+            }
+            else{
+                drive.followTrajectory(goToDuckMiddleBlue);
+                drive.spinwheelright();
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroMiddleBlue);
+            }
+
             LiftArmMiddle();
             drive.followTrajectory(goToBasketTowerLevelMiddle);
             drive.outTakeblocks();
@@ -276,27 +296,29 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
             drive.stopIntakeBlocks();
             drive.followTrajectory(goBackFromBasketTowerLevelMiddle);
             drive.ArmLifter(-1,4);
-            drive.followTrajectory(goBackToStartPositionStrafeMiddle);
-           if(teamColor == 1.0) {
-               drive.followTrajectory(goToDuckMiddleRed);
-               drive.spinwheel(teamColor);
-               sleep(5000);
-               drive.followTrajectory(goToStorageMiddleRed);
-           }
-           else{
-               drive.followTrajectory(goToDuckMiddleBlue);
-               drive.spinwheelright();
-               drive.spinwheel(teamColor);
-               sleep(5000);
-               drive.followTrajectory(goToStorageMiddleBlue);
+            drive.followTrajectory(goToStorageMiddle);
+            sleep(500);
 
 
-           }
 
 
         }
         if(pos == VuforiaStuff.capElementPos.RIGHT)
         {
+            if(teamColor == 1.0) {
+                drive.followTrajectory(goToDuckHighRed);
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroHighRed);
+            }
+            else{
+                drive.followTrajectory(goToDuckHighBlue);
+                drive.spinwheelright();
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroHighBlue);
+            }
+
             LiftArmHigh();
             drive.followTrajectory(goToBasketTowerLevelHigh);
             drive.outTakeblocks();
@@ -304,27 +326,28 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
             drive.stopIntakeBlocks();
             drive.followTrajectory(goBackFromBasketTowerLevelHigh);
             drive.ArmLifter(-1,4);
-            drive.followTrajectory(goBackToStartPositionStrafeHigh);
+            drive.followTrajectory(goToStorageHigh);
             sleep(500);
-            if(teamColor == 1.0) {
-                drive.followTrajectory(goToDuckHighRed);
-                drive.spinwheel(teamColor);
-                sleep(5000);
-                drive.followTrajectory(goToStorageHighRed);
-            }
-            else{
-                drive.followTrajectory(goToDuckHighBlue);
-                drive.spinwheelright();
-                drive.spinwheel(teamColor);
-                sleep(5000);
-                drive.followTrajectory(goToStorageHighBlue);
 
 
-            }
 
         }
         if(pos == VuforiaStuff.capElementPos.LEFT)
         {
+            if(teamColor == 1.0) {
+                drive.followTrajectory(goToDuckLowRed);
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroLowRed);
+            }
+            else{
+                drive.followTrajectory(goToDuckLowBlue);
+                drive.spinwheelright();
+                drive.spinwheel(teamColor);
+                sleep(5000);
+                drive.followTrajectory(goToZeroLowBlue);
+            }
+
             LiftArmLow();
             drive.followTrajectory(goToBasketTowerLevelLow);
             drive.outTakeblocks();
@@ -332,23 +355,10 @@ public class AutoNearDucksWithSpinner extends LinearOpMode {
             drive.stopIntakeBlocks();
             drive.followTrajectory(goBackFromBasketTowerLevelLow);
             drive.ArmLifter(-1,4);
-            drive.followTrajectory(goBackToStartPositionStrafeLow);
+            drive.followTrajectory(goToStorageLow);
             sleep(500);
-            if(teamColor == 1.0) {
-                drive.followTrajectory(goToDuckLowRed);
-                drive.spinwheel(teamColor);
-                sleep(5000);
-                drive.followTrajectory(goToStorageLowRed);
-            }
-            else{
-                drive.followTrajectory(goToDuckLowBlue);
-                drive.spinwheelright();
-                drive.spinwheel(teamColor);
-                sleep(5000);
-                drive.followTrajectory(goToStorageLowBlue);
 
 
-            }
         }
 
 //        LiftArm(pos);

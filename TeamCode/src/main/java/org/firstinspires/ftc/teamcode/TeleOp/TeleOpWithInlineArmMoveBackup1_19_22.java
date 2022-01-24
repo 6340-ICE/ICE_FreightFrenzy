@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -19,7 +19,8 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "drive")
-public class TeleOpWithInlineArmMove extends LinearOpMode {
+@Disabled
+public class TeleOpWithInlineArmMoveBackup1_19_22 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -40,11 +41,6 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         drive.shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         int startPosition=0;
         int poistionOfArm =0;
-        double servoPosition =0.0;
-        double servoPositionRate = 0.001;
-        double servoPositionTurret = 0.0;
-        double servoPositionTurretRate = 0.002;
-        double servoBringBackRate = -1.0;
 /*
         startPosition = drive.ArmMotor.getCurrentPosition();
         int endPosition = startPosition;
@@ -59,24 +55,13 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         boolean gamepad2_X_WasPressed = false;
 
         while (opModeIsActive()) {
-            if(gamepad1.right_trigger>0.0) {
-                drive.setWeightedDrivePower(
-                        new Pose2d(
-                                -gamepad1.left_stick_y * .9,
-                                -gamepad1.left_stick_x * .9,
-                                -gamepad1.right_stick_x * .7
-                        )
-                );
-            }
-            else {
-                drive.setWeightedDrivePower(
-                        new Pose2d(
-                                -gamepad1.left_stick_y * .7,
-                                -gamepad1.left_stick_x * .7,
-                                -gamepad1.right_stick_x * .7
-                        )
-                );
-            }
+            drive.setWeightedDrivePower(
+                    new Pose2d(
+                            -gamepad1.left_stick_y*.7,
+                            -gamepad1.left_stick_x*.7,
+                            -gamepad1.right_stick_x*.7
+                    )
+            );
             //TODO create button map
 
             drive.update();
@@ -114,73 +99,16 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
             }
 
-            if (gamepad1.dpad_right) // X is intake system
+            if (gamepad2.dpad_right) // X is intake system
                 drive.spinwheelright();
-            if (gamepad1.dpad_left) // X is intake system
+            if (gamepad2.dpad_left) // X is intake system
                 drive.spinwheelleft();
-            if (gamepad1.dpad_down) // X is intake system
-                drive.spinwheelstop();
-            if (gamepad2.y) {
+            if (gamepad2.dpad_up) {
                 drive.stopIntakeBlocks();
             }
-            if (gamepad2.b) {
-                drive.greenWheelServo.setPower(1.0);
-            }
-
-            if (gamepad2.x) {
-                drive.greenWheelServo.setPower(servoBringBackRate);
-            }
-            else{
-                if(!gamepad2.b)
-                    drive.greenWheelServo.setPower(0.0);
-            }
-
-            if (gamepad2.a) {
-                drive.greenWheelServo.setPower(0.0);
-            }
-
-            if(gamepad2.right_trigger>0.0){
-                servoPositionTurretRate = 0.001;
-                servoPositionRate = 0.0005;
-                servoBringBackRate = -0.5;
-            }
-            else{
-                servoPositionTurretRate = 0.002;
-                servoPositionRate = 0.001;
-                servoBringBackRate = -1.0;
-            }
-
-            if (gamepad2.dpad_up) {
-                servoPosition = servoPosition + servoPositionRate;
-                if(servoPosition > 1.0)
-                    servoPosition = 1.0;
-                drive.angleServo.setPosition(servoPosition);
-
-            }
-            if (gamepad2.dpad_down) {
-                servoPosition = servoPosition - servoPositionRate;
-                if(servoPosition < 0.0)
-                    servoPosition = 0.0;
-                drive.angleServo.setPosition(servoPosition);
-            }
-
-
-
-            if (gamepad2.dpad_right) {
-                servoPositionTurret = servoPositionTurret + servoPositionTurretRate;
-                if(servoPositionTurret > 1.0)
-                    servoPositionTurret = 1.0;
-                drive.turretServo.setPosition(servoPositionTurret);
-
-            }
-            if (gamepad2.dpad_left) {
-                servoPositionTurret = servoPositionTurret - servoPositionTurretRate;
-                if(servoPositionTurret < 0.0)
-                    servoPositionTurret = 0.0;
-                drive.turretServo.setPosition(servoPositionTurret);
-            }
-            /*
-            if(gamepad2.x)
+            if (gamepad2.dpad_down) // X is intake system
+                drive.spinwheelstop();
+            if(gamepad2.y)
             {
                 gamepad2_Y_WasPressed = true;
                 gamepad2_A_WasPressed = false;
@@ -243,7 +171,6 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                     drive.ArmMotor.setPower(0.0);
                 }
             }
-       */
        /*
             if (gamepad1.x) // X is intake system
             {
@@ -262,7 +189,6 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
             }
             drive.update();
-        /*
             if(gamepad2.x)
             {
                 if(gamepad2_X_WasPressed)
@@ -273,8 +199,6 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 if(gamepad2.left_stick_y > 0.0)
                     gamepad2_X_WasPressed=false;
             }
-
-         */
             drive.rotorMotor.setPower(gamepad2.left_stick_x*-1.0);
             double powerToApply = 0.0;
             if(Math.abs(gamepad2.right_stick_y) > 0.00){
@@ -295,8 +219,6 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
             telemetry.addData(("PostionLevel:"),poistionOfArm);
             telemetry.addData("Amr Power ", drive.ArmMotor.getPower());
             telemetry.addData("Position", drive.ArmMotor.getCurrentPosition());
-            telemetry.addData("servoPosition", servoPosition);
-            telemetry.addData("servoturretPosition", servoPositionTurret);
             telemetry.update();
             telemetry.update();
 

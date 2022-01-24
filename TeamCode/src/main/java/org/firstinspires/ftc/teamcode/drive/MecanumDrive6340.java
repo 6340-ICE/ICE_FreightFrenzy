@@ -127,6 +127,8 @@ public class MecanumDrive6340 extends MecanumDrive {
     public Servo leftServo, rightServo, armServo, shooterServo;
     public Servo handServo, elbowServo, boxServo;
     public CRServo leftWheelServo, rightWheelServo;
+    public CRServo greenWheelServo;
+    public Servo angleServo,  turretServo;
     public AnalogInput armPOT;
     public DigitalChannel digitalTouch;
     public DigitalChannel redLED1;
@@ -261,9 +263,13 @@ public class MecanumDrive6340 extends MecanumDrive {
         rightWheelServo = hardwareMap.get(CRServo.class, "rightWheelServo");
         leftWheelServo = hardwareMap.get(CRServo.class, "leftWheelServo");
     //   armServo = hardwareMap.get(Servo.class, "armServo");
-        handServo = hardwareMap.get(Servo.class, "handServo");
-        elbowServo = hardwareMap.get(Servo.class, "elbowServo");
-        boxServo = hardwareMap.get(Servo.class, "boxServo");
+     //   handServo = hardwareMap.get(Servo.class, "handServo");
+       // elbowServo = hardwareMap.get(Servo.class, "elbowServo");
+       // boxServo = hardwareMap.get(Servo.class, "boxServo");
+        greenWheelServo = hardwareMap.get(CRServo.class, "greenWheelServo");
+        turretServo = hardwareMap.get(Servo.class, "turretServo");
+        angleServo = hardwareMap.get(Servo.class, "angleServo");
+
 
         armPOT = hardwareMap.get(AnalogInput.class, "armPOT");
         double currentVoltage = armPOT.getVoltage();
@@ -619,6 +625,7 @@ public class MecanumDrive6340 extends MecanumDrive {
         leftWheelServo.setPower(-1.0);
         rightWheelServo.setPower(1.0);
     }
+
     public void stopIntakeBlocks(){
         leftWheelServo.setPower(0.0);
         rightWheelServo.setPower(0.0);

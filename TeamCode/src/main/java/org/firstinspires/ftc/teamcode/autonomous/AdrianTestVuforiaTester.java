@@ -86,11 +86,11 @@ public class AdrianTestVuforiaTester extends AdrianMecanumControls {
         // Wait for the game to start (driver presses PLAY)
 
         MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
-        drive.elbowServo.setPosition(1.0);
+        //drive.elbowServo.setPosition(1.0);
         sleep(1000);
         //drive.boxServo.setPosition(0.2);
         //sleep(1000);
-        drive.handServo.setPosition(0.3);
+        //drive.handServo.setPosition(0.3);
 
         waitForStart();
         runtime.reset();
@@ -118,14 +118,14 @@ public class AdrianTestVuforiaTester extends AdrianMecanumControls {
         }
         //drive.ArmMotor.setPower(0);
          sleep(500);
-        drive.elbowServo.setPosition(0.0);
+        //drive.elbowServo.setPosition(0.0);
         sleep(1500);
 
-        drive.handServo.setPosition(0.0);
+        //drive.handServo.setPosition(0.0);
         sleep(500);
-        drive.boxServo.setPosition(1.0);
+        //drive.boxServo.setPosition(1.0);
         sleep(1500);
-        drive.boxServo.setPosition(0.3);
+        //drive.boxServo.setPosition(0.3);
 
 
 
