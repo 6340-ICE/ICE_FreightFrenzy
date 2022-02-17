@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.drive;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.config.Config;
@@ -31,47 +29,45 @@ import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
-import org.firstinspires.ftc.teamcode.AdrianControls.VuforiaStuff;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 
-import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
+import androidx.annotation.NonNull;
+
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kA;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kStatic;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
-public class MecanumDrive6340 extends MecanumDrive {
+public class MecanumDrive6340_HighSpeed extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
    public static PIDFCoefficients SHOOTER_PID = new PIDFCoefficients(35, 0, 7, 14);
@@ -152,7 +148,7 @@ public class MecanumDrive6340 extends MecanumDrive {
     public double armMinPowerDuringMoveTeleop = 0.40;
     public double armMinPowerDuringHold = 0.02;
 
-    public MecanumDrive6340(HardwareMap hardwareMap) {        super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
+    public MecanumDrive6340_HighSpeed(HardwareMap hardwareMap) {        super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         Context context = AppUtil.getInstance().getApplication();
 

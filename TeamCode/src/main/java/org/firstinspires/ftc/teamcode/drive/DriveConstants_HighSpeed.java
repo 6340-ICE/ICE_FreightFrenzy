@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
  * and op modes themselves.
  */
 @Config
-public class DriveConstants {
+public class DriveConstants_HighSpeed {
 
     /*
     Initialize and instantiate vuforia variables
@@ -87,7 +87,7 @@ public class DriveConstants {
      */
     //public static double MAX_VEL = 65.28996;
     public static double MAX_VEL = 65.28996;
-    public static double MAX_ACCEL = 52.48180821614297;
+    public static double MAX_ACCEL = 56;//52.48180821614297;
     public static double MAX_ANG_VEL = Math.toRadians(246.50481367533183);
     public static double MAX_ANG_ACCEL = Math.toRadians(184.02607784577722);
 

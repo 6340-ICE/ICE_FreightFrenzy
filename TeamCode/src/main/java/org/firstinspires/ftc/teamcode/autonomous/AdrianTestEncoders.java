@@ -168,7 +168,8 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
   //          telemetry.addData("powervaluefinal ", drive.ArmMotor.getPower());
 //            telemetry.addData("powervaluefinal ", feedForward.calculate(-1,0.25));
 
-
+            posData = vuforiaStuff.vuforiascan(true, true);
+            telemetry.addData("Position Detected",posData.capElementPosition);
 
             telemetry.update();
 

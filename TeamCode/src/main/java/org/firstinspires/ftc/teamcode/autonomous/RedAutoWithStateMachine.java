@@ -42,13 +42,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "Blue AutoWithTwoBlocksWithSlide", group = "Autonomous")
+@Autonomous(name = "RedAutoWithStateMachine", group = "Autonomous")
 @Disabled
 
-public class BlueAutoWithTwoBlocksWithSlide extends AutoWithTwoBlocks {
+public class RedAutoWithStateMachine extends AutoWithStateMachine {
 
-    public BlueAutoWithTwoBlocksWithSlide()
+    public RedAutoWithStateMachine()
     {
-        super(-1, true);
+        super(1, false);
     }
 }

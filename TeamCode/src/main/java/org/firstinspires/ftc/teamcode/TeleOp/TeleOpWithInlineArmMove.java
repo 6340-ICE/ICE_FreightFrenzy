@@ -41,9 +41,9 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         int startPosition=0;
         int poistionOfArm =0;
         double servoPosition =0.0;
-        double servoPositionRate = 0.001;
+        double servoPositionRate = 0.0007;
         double servoPositionTurret = 0.0;
-        double servoPositionTurretRate = 0.002;
+        double servoPositionTurretRate = 0.001;
         double servoBringBackRate = -1.0;
 /*
         startPosition = drive.ArmMotor.getCurrentPosition();
@@ -62,8 +62,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
             if(gamepad1.right_trigger>0.0) {
                 drive.setWeightedDrivePower(
                         new Pose2d(
-                                -gamepad1.left_stick_y * .9,
-                                -gamepad1.left_stick_x * .9,
+                                -gamepad1.left_stick_y * (0.7 + gamepad1.right_trigger * 0.3),
+                                -gamepad1.left_stick_x * (0.7 + gamepad1.right_trigger * 0.3),
                                 -gamepad1.right_stick_x * .7
                         )
                 );
@@ -140,14 +140,14 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
             }
 
             if(gamepad2.right_trigger>0.0){
-                servoPositionTurretRate = 0.001;
-                servoPositionRate = 0.0005;
-                servoBringBackRate = -0.5;
-            }
-            else{
                 servoPositionTurretRate = 0.002;
                 servoPositionRate = 0.001;
                 servoBringBackRate = -1.0;
+            }
+            else{
+                servoPositionTurretRate = 0.0006;
+                servoPositionRate = 0.0003;
+                servoBringBackRate = -0.3;
             }
 
             if (gamepad2.dpad_up) {
@@ -282,11 +282,11 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 gamepad2_A_WasPressed = false;
                 gamepad2_B_WasPressed= false;
                 gamepad2_X_WasPressed = false;
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*-1.0);
+                drive.ArmMotor.setPower(gamepad2.right_stick_y*1.0);
             }
             if(!(gamepad2_A_WasPressed || gamepad2_B_WasPressed || gamepad2_X_WasPressed ||gamepad2_Y_WasPressed))
             {
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*-1.0);
+                drive.ArmMotor.setPower(gamepad2.right_stick_y*1.0);
             }
 
 
