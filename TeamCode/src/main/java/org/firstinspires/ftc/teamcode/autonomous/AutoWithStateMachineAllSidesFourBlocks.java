@@ -179,7 +179,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
         // Let's define our trajectories
         //region TRAJECTORIES FOR LEVEL MIDDLE
         Trajectory goToBasketTowerLevelMiddle = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-8, -55.5 * teamColor))
+                .lineTo(new Vector2d(-8, -55 * teamColor))
                 .build();
         Trajectory SlideBackFromTowerLevelMiddle1 = drive.trajectoryBuilder(goToBasketTowerLevelMiddle.end())
                 //.splineToConst
@@ -239,17 +239,12 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .build();
         Trajectory GoToWearhouseLevelMiddle4 = drive.trajectoryBuilder(GoBackToStartLevelMiddle4.end())
                 //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(56, -72.1*teamColor, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55.5, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory GoBackToStartLevelMiddleTwo4 = drive.trajectoryBuilder(GoToWearhouseLevelMiddle4.end())
                 //.splineToConst
                 // antHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
-                        ,
-                        drive.getVelocityConstraint(55.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(DriveConstants_HighSpeed.MAX_ACCEL)
-
-                )
+                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory goToBasketTowerLevelMiddle4 = drive.trajectoryBuilder(GoBackToStartLevelMiddleTwo4.end())
                 .lineToLinearHeading(new Pose2d(-8, -49 *teamColor, Math.toRadians(90*teamColor)))
@@ -266,7 +261,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
                         ,
                         drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(80)
+                        drive.getAccelerationConstraint(80.0)
                 )
 
                 .build();
@@ -275,7 +270,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(40, -72.1*teamColor, Math.toRadians(0))
                 ,
                 drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                drive.getAccelerationConstraint(80)
+                drive.getAccelerationConstraint(80.0)
                 )
                 .build();
         Trajectory GoToMiddleEndPositionOne = drive.trajectoryBuilder(GoToWearhouseLevelMiddleFinal.end())
@@ -287,7 +282,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
 
         //region TRAJECTORIES FOR LEVEL High
         Trajectory goToBasketTowerLevelHigh = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-8, -51 * teamColor))
+                .lineTo(new Vector2d(-8, -50.5 * teamColor))
                 .build();
         Trajectory SlideBackFromTowerLevelHigh1 = drive.trajectoryBuilder(goToBasketTowerLevelHigh.end())
                 //.splineToConst
@@ -347,17 +342,12 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .build();
         Trajectory GoToWearhouseLevelHigh4 = drive.trajectoryBuilder(GoBackToStartLevelHigh4.end())
                 //.splineToConstantHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(56, -72.1*teamColor, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55.5, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory GoBackToStartLevelHighTwo4 = drive.trajectoryBuilder(GoToWearhouseLevelHigh4.end())
                 //.splineToConst
                 // antHeading(new Vector2d( -65,-72), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
-                        ,
-                        drive.getVelocityConstraint(55.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(DriveConstants_HighSpeed.MAX_ACCEL)
-
-                )
+                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory goToBasketTowerLevelHigh4 = drive.trajectoryBuilder(GoBackToStartLevelHighTwo4.end())
                 .lineToLinearHeading(new Pose2d(-8, -49 *teamColor, Math.toRadians(90*teamColor)))
@@ -374,7 +364,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
                         ,
                         drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(80)
+                        drive.getAccelerationConstraint(80.0)
                 )
 
                 .build();
@@ -383,7 +373,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(40, -72.1*teamColor, Math.toRadians(0))
                         ,
                         drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(80)
+                        drive.getAccelerationConstraint(80.0)
                 )
                 .build();
         Trajectory GoToHighEndPositionOne = drive.trajectoryBuilder(GoToWearhouseLevelHighFinal.end())
@@ -454,16 +444,12 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .build();
         Trajectory GoToWearhouseLevelLow4 = drive.trajectoryBuilder(GoBackToStartLevelLow4.end())
                 //.splineToConstantHeading(new Vector2d( -65,-72.1), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(56, -72.1*teamColor, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55.5, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory GoBackToStartLevelLowTwo4 = drive.trajectoryBuilder(GoToWearhouseLevelLow4.end())
                 //.splineToConst
                 // antHeading(new Vector2d( -65,-72.1), Math.toRadians(90))
-                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
-                        ,
-                        drive.getVelocityConstraint(55.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(DriveConstants_HighSpeed.MAX_ACCEL)
-                )
+                .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0)))
                 .build();
         Trajectory goToBasketTowerLevelLow4 = drive.trajectoryBuilder(GoBackToStartLevelLowTwo4.end())
                 .lineToLinearHeading(new Pose2d(-8, -49 *teamColor, Math.toRadians(90*teamColor)))
@@ -480,7 +466,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(9, -72.1*teamColor, Math.toRadians(0))
                         ,
                         drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(80)
+                        drive.getAccelerationConstraint(80.0)
                 )
 
                 .build();
@@ -489,7 +475,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(40, -72.1*teamColor, Math.toRadians(0))
                         ,
                         drive.getVelocityConstraint(80.0, DriveConstants_HighSpeed.MAX_ANG_VEL, DriveConstants_HighSpeed.TRACK_WIDTH),
-                        drive.getAccelerationConstraint(80)
+                        drive.getAccelerationConstraint(80.0)
                 )
                 .build();
         Trajectory GoToLowEndPositionOne = drive.trajectoryBuilder(GoToWearhouseLevelLowFinal.end())
@@ -635,7 +621,8 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+//                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                      if (!drive.isBusy()) {
                         currentState = State.GoToWearhouseLevelMiddle;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelMiddle);
@@ -713,7 +700,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                  if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelMiddle3;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelMiddle3);
@@ -790,7 +777,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelMiddle4;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelMiddle4);
@@ -853,7 +840,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 case SlideBackFromTowerLevelMiddle4:
                     if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
                         currentState = State.GoBackToStartLevelMiddleFinal;
-                        levelArmShouldGoTo = -1;
+                        levelArmShouldGoTo = 2;
                         drive.ArmLifterAsyncUpdate(levelArmShouldGoTo);
                         drive.followTrajectoryAsync(GoBackToStartLevelMiddleFinal);
                     }
@@ -867,7 +854,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelMiddleFinal;
                         drive.followTrajectoryAsync(GoToWearhouseLevelMiddleFinal);
 
@@ -936,7 +923,8 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                //    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                     if (!drive.isBusy()) {
                         currentState = State.GoToWearhouseLevelHigh;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelHigh);
@@ -1014,7 +1002,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelHigh3;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelHigh3);
@@ -1091,7 +1079,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelHigh4;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelHigh4);
@@ -1154,7 +1142,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 case SlideBackFromTowerLevelHigh4:
                     if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
                         currentState = State.GoBackToStartLevelHighFinal;
-                        levelArmShouldGoTo = -1;
+                        levelArmShouldGoTo = 2;
                         drive.ArmLifterAsyncUpdate(levelArmShouldGoTo);
                         drive.followTrajectoryAsync(GoBackToStartLevelHighFinal);
                     }
@@ -1167,7 +1155,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelHighFinal;
                         drive.followTrajectoryAsync(GoToWearhouseLevelHighFinal);
 
@@ -1236,7 +1224,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelLow;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelLow);
@@ -1314,7 +1302,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy()){
                         currentState = State.GoToWearhouseLevelLow3;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelLow3);
@@ -1391,7 +1379,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy())  {
                         currentState = State.GoToWearhouseLevelLow4;
                         drive.inTakeblocks();
                         drive.followTrajectoryAsync(GoToWearhouseLevelLow4);
@@ -1454,7 +1442,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                 case SlideBackFromTowerLevelLow4:
                     if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
                         currentState = State.GoBackToStartLevelLowFinal;
-                        levelArmShouldGoTo = -1;
+                        levelArmShouldGoTo = 2;
                         drive.ArmLifterAsyncUpdate(levelArmShouldGoTo);
                         drive.followTrajectoryAsync(GoBackToStartLevelLowFinal);
                     }
@@ -1467,7 +1455,7 @@ public class AutoWithStateMachineAllSidesFourBlocks extends LinearOpMode {
                     // Once `isBusy() == false`, the trajectory follower signals that it is finished
                     // We move on to the next state
                     // Make sure we use the async follow function
-                    if (!drive.isBusy() && !drive.IsArmLifterBusy()) {
+                    if (!drive.isBusy()) {
                         currentState = State.GoToWearhouseLevelLowFinal;
                         drive.followTrajectoryAsync(GoToWearhouseLevelLowFinal);
 

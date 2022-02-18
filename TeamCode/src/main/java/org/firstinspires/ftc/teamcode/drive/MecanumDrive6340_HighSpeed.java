@@ -51,17 +51,17 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kA;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kStatic;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants_HighSpeed.kV;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
