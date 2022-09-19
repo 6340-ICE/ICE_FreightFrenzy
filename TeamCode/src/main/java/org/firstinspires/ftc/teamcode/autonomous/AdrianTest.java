@@ -57,8 +57,8 @@ import org.firstinspires.ftc.teamcode.drive.MecanumDrive6340;
  */
 
 @Autonomous(name="AdrianTest", group="Linear Opmode")
-@Disabled
-public class AdrianTest extends AdrianMecanumControls {
+//@Disabled
+public class AdrianTest extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -73,56 +73,23 @@ public class AdrianTest extends AdrianMecanumControls {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         //Initialize Hardware( see AdrianMecanumControls)
-        initializeHardware();
-        MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
-        drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
 
-        drive.ArmLifter(1,4);
-        sleep(2000);
-        drive.ArmLifter(2,4);
-        sleep(2000);
-        drive.ArmLifter(3,4);
-        sleep(2000);
-        drive.ArmLifter(2,4);
-        sleep(2000);
-        drive.ArmLifter(1,4);
+        MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
+        drive.leftRear.setPower(0.5);
+        drive.leftFront.setPower(0.5);
+        drive.rightRear.setPower(0.5);
+        drive.rightFront.setPower(0.5);
+        sleep(10000);
 
-
-
-
-        //drive.ArmLifterWithPIDControllerCopy(1,4);
-        //drive.ArmLifterWithPIDController();
 
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-        //finding encoder values
-            RightEncoderValue = GetRightEncoderValue();
-            LeftEncoderValue = GetLeftEncoderValue();
-            SideEncoderValue = GetSideEncoderValue();
-
-       //     telemetry.addData("Right Encoder Value", RightEncoderValue);
-         //   telemetry.addData("LeftEncoderValue", LeftEncoderValue);
-           // telemetry.addData("SideEncoderValue", SideEncoderValue);
-            telemetry.addData("GetArmPos", drive.ArmMotor.getCurrentPosition());
-            telemetry.update();
-            telemetry.update();
-            // grid mecanum movment function( see Adrian Mecanum Controls)
-           // GridMecanumMovement(-1,1,0.2);
-
-
-/*
-            telemetry.addData("Right Encoder Value", RightEncoderValue);
-            telemetry.addData("LeftEncoderValue", LeftEncoderValue);
-            telemetry.addData("SideEncoderValue", SideEncoderValue);
-            telemetry.update();
-            telemetry.update();
-
- */
+         /*   drive.leftRear.setPower(1.0);
+            sleep(1000);
+            drive.leftRear.setPower(0.0);
+*/
                  }
         }
 

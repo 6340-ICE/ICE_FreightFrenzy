@@ -45,6 +45,9 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         double servoPositionTurret = 0.0;
         double servoPositionTurretRate = 0.001;
         double servoBringBackRate = -1.0;
+
+        //start at current servo positions:
+
 /*
         startPosition = drive.ArmMotor.getCurrentPosition();
         int endPosition = startPosition;
@@ -59,6 +62,7 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
         boolean gamepad2_X_WasPressed = false;
 
         while (opModeIsActive()) {
+
             if(gamepad1.right_trigger>0.0) {
                 drive.setWeightedDrivePower(
                         new Pose2d(
@@ -151,6 +155,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
             }
 
             if (gamepad2.dpad_up) {
+                servoPosition = drive.angleServo.getPosition();
+                servoPositionTurret = drive.turretServo.getPosition();
                 servoPosition = servoPosition + servoPositionRate;
                 if(servoPosition > 1.0)
                     servoPosition = 1.0;
@@ -158,6 +164,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
             }
             if (gamepad2.dpad_down) {
+                servoPosition = drive.angleServo.getPosition();
+                servoPositionTurret = drive.turretServo.getPosition();
                 servoPosition = servoPosition - servoPositionRate;
                 if(servoPosition < 0.0)
                     servoPosition = 0.0;
@@ -167,6 +175,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
 
             if (gamepad2.dpad_right) {
+                servoPosition = drive.angleServo.getPosition();
+                servoPositionTurret = drive.turretServo.getPosition();
                 servoPositionTurret = servoPositionTurret + servoPositionTurretRate;
                 if(servoPositionTurret > 1.0)
                     servoPositionTurret = 1.0;
@@ -174,6 +184,8 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
 
             }
             if (gamepad2.dpad_left) {
+                servoPosition = drive.angleServo.getPosition();
+                servoPositionTurret = drive.turretServo.getPosition();
                 servoPositionTurret = servoPositionTurret - servoPositionTurretRate;
                 if(servoPositionTurret < 0.0)
                     servoPositionTurret = 0.0;
@@ -282,11 +294,11 @@ public class TeleOpWithInlineArmMove extends LinearOpMode {
                 gamepad2_A_WasPressed = false;
                 gamepad2_B_WasPressed= false;
                 gamepad2_X_WasPressed = false;
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*1.0);
+                drive.ArmMotor.setPower(gamepad2.right_stick_y*0.8);
             }
             if(!(gamepad2_A_WasPressed || gamepad2_B_WasPressed || gamepad2_X_WasPressed ||gamepad2_Y_WasPressed))
             {
-                drive.ArmMotor.setPower(gamepad2.right_stick_y*1.0);
+                drive.ArmMotor.setPower(gamepad2.right_stick_y*0.8);
             }
 
 

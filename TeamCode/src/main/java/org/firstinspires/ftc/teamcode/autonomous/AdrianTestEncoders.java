@@ -77,15 +77,17 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
         telemetry.update();
         //Initialize Hardware( see AdrianMecanumControls)
         initializeHardware();
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+ /*       VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
         vuforiaStuff = new VuforiaStuff(vuforia);
         // Wait for the game to start (driver presses PLAY)
 
+
+  */
         MecanumDrive6340 drive = new MecanumDrive6340(hardwareMap);
         //drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //drive.elbowServo.setPosition(1.0);
@@ -119,7 +121,7 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
         //drive.boxServo.setPosition(0.3);
 
 
-
+/*
 
         VuforiaStuff.capElementPositionData posData = null;
         posData = vuforiaStuff.vuforiascan(true, true);
@@ -129,8 +131,7 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
         boolean turnOnlyOneAtIntake = false;
         VuforiaStuff.capElementPos pos = null;
         pos = posData.capElementPosition;
-      drive.ArmMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        drive.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
   /*     //   drive.ArmMotor.setPower(0.176);
          double kSVolts = 1;
         double kCosVolts = 1;
@@ -160,7 +161,7 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
             telemetry.addData("RightEncoderValue", drive.rightEncoderMotor.getCurrentPosition());
             telemetry.addData("LeftEncoderValue", drive.duckMotor.getCurrentPosition());
             telemetry.addData("FrontEncoderValue", drive.rotorMotor.getCurrentPosition());
-
+/*
             telemetry.addData("LeftYellowCount", posData.yellowCountLeft);
             telemetry.addData("CenterYellowCount", posData.yellowCountCenter);
             telemetry.addData("RightYellowCount", posData.yellowCountRight);
@@ -168,9 +169,10 @@ public class AdrianTestEncoders extends AdrianMecanumControls {
   //          telemetry.addData("powervaluefinal ", drive.ArmMotor.getPower());
 //            telemetry.addData("powervaluefinal ", feedForward.calculate(-1,0.25));
 
+
             posData = vuforiaStuff.vuforiascan(true, true);
             telemetry.addData("Position Detected",posData.capElementPosition);
-
+*/
             telemetry.update();
 
             //telemetry.addData("FilePath", path);

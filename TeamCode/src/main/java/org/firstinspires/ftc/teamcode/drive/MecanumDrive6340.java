@@ -107,8 +107,8 @@ public class MecanumDrive6340 extends MecanumDrive {
 
     private LinkedList<Pose2d> poseHistory;
 
-    protected DcMotorEx leftFront, leftRear, rightRear, rightFront;
-    protected List<DcMotorEx> motors;
+    public DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    public List<DcMotorEx> motors;
     public DcMotorEx intake;
     public DcMotorEx duckMotor;
     public DcMotorEx rotorMotor;
